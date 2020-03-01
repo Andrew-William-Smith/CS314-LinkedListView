@@ -91,7 +91,7 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
             + "}</style>\n"
             + "</head>\n"
             + "<body>\n"
-            + "<script src=\"//d3js.org/d3.v4.min.js\"></script>\n"
+            + "<script src=\"https://d3js.org/d3.v4.min.js\"></script>\n"
             + "<script src=\"https://unpkg.com/viz.js@1.8.0/viz.js\"></script>\n"
             + "<script src=\"https://unpkg.com/d3-graphviz@0.1.2/build/d3-graphviz.js\"></script>\n"
             + "<h1>CS 314 <code>LinkedList</code> operation transcript</h1>\n"
