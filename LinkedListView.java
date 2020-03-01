@@ -63,6 +63,8 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
     private static final String MODIFIED_COLOUR = "red";
     /** Character sequence at the end of a node's attribute declaration. */
     private static final String END_NODE_ATTRIBUTES = "];\n";
+    /** Whether to highlight inter-operation modifications. */
+    private boolean highlightModifications;
     /** Cache of GraphViz Dot list nodes generated on a previous operation. */
     private HashMap<Object, DotListNode> lastDotNodes;
     /** Header node in the previous operation. */
@@ -116,11 +118,25 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
 
     //region Constructor and field resolution
     /**
-     * Construct a new LinkedListView instance, using reflection to determine how the LinkedList is structured.
+     * Construct a new LinkedListView instance, using reflection to determine how the LinkedList is structured.  Updates
+     * to the list between operations will be highlighted.
+     *
      * @param fileName The name of the file to which to write HTML list diagrams.
-     * @throws NoSuchFieldException If a header node could not be found in LinkedList.
      */
     public LinkedListView(String fileName) throws NoSuchFieldException {
+        this(fileName, true);
+    }
+
+    /**
+     * Construct a new LinkedListView instance, using reflection to determine how the LinkedList is structured.
+     *
+     * @param fileName The name of the file to which to write HTML list diagrams.
+     * @param highlightModifications Whether to highlight modifications to the list between operations.
+     * @throws NoSuchFieldException If a header node could not be found in LinkedList.
+     */
+    public LinkedListView(String fileName, boolean highlightModifications) throws NoSuchFieldException {
+        this.highlightModifications = highlightModifications;
+
         // Find the header node, which must exist
         this.headNodeField = this.findFieldName(LinkedList.class, HEAD_NAMES);
         if (this.headNodeField == null) {
@@ -273,7 +289,7 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
     private void writeModifiedColour(String attributeName, boolean comma, boolean added, boolean modified)
             throws IOException {
         String colour = added ? NEW_COLOUR : MODIFIED_COLOUR;
-        if (modified || added) {
+        if (this.highlightModifications && (modified || added)) {
             if (comma) {
                 htmlWriter.write(",");
             }
@@ -313,19 +329,19 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
 
         // Print edges
         if (headNode == null) {
-            this.writeNullExternalNode(headerNodeName);
+            this.writeNullExternalNode(headerNodeName, this.lastHeadNode);
         } else {
             htmlWriter.write(String.format("  %s -> %s%s [", headerNodeName, DotListNode.DOT_PREFIX,
                     headNode.getUUID()));
-            writeModifiedColour("color", false, false, rawHeadNode != lastHeadNode);
+            writeModifiedColour("color", false, false, rawHeadNode != this.lastHeadNode);
             htmlWriter.write(END_NODE_ATTRIBUTES);
         }
         if (tailNode == null) {
-            this.writeNullExternalNode(tailNodeName);
+            this.writeNullExternalNode(tailNodeName, this.lastTailNode);
         } else {
             htmlWriter.write(String.format("  %s%s -> %s [dir=back", DotListNode.DOT_PREFIX, tailNode.getUUID(),
                     tailNodeName));
-            writeModifiedColour("color", true, false, rawTailNode != lastTailNode);
+            writeModifiedColour("color", true, false, rawTailNode != this.lastTailNode);
             htmlWriter.write(END_NODE_ATTRIBUTES);
         }
         htmlWriter.write("  edge[tailclip=false,arrowtail=dot,dir=both" + END_NODE_ATTRIBUTES);
@@ -335,9 +351,9 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
         }
 
         // Store this run's node cache
-        lastDotNodes = dotNodes;
-        lastHeadNode = rawHeadNode;
-        lastTailNode = rawTailNode;
+        this.lastDotNodes = dotNodes;
+        this.lastHeadNode = rawHeadNode;
+        this.lastTailNode = rawTailNode;
     }
 
     /**
@@ -353,10 +369,13 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
     /**
      * Draw an edge from the specified external variable's node to a null node.
      * @param nameNode The name of the node containing this variable's name.
+     * @param lastTarget The target of this node during the previous operation.
      */
-    private void writeNullExternalNode(String nameNode) throws IOException {
+    private void writeNullExternalNode(String nameNode, Object lastTarget) throws IOException {
         htmlWriter.write("  " + nameNode + "_NULL [shape=circle,label=<<B>∅</B>>" + END_NODE_ATTRIBUTES);
-        htmlWriter.write("  " + nameNode + " -> " + nameNode + "_NULL;\n");
+        htmlWriter.write("  " + nameNode + " -> " + nameNode + "_NULL [");
+        writeModifiedColour("color", false, false, lastTarget == null);
+        htmlWriter.write(END_NODE_ATTRIBUTES);
     }
 
     /**
