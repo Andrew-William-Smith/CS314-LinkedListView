@@ -354,13 +354,15 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
             writeModifiedColour("color", false, rawHeadNode != this.lastHeadNode);
             htmlWriter.write(END_NODE_ATTRIBUTES);
         }
-        if (tailNode == null) {
-            this.writeNullExternalNode(tailNodeName, this.lastTailNode);
-        } else {
-            htmlWriter.write(String.format("  %s%s -> %s [dir=back,", DotListNode.DOT_PREFIX, tailNode.getUUID(),
-                    tailNodeName));
-            writeModifiedColour("color", false, rawTailNode != this.lastTailNode);
-            htmlWriter.write(END_NODE_ATTRIBUTES);
+        if (this.tailNodeField != null) {
+            if (tailNode == null) {
+                this.writeNullExternalNode(tailNodeName, this.lastTailNode);
+            } else {
+                htmlWriter.write(String.format("  %s%s -> %s [dir=back,", DotListNode.DOT_PREFIX, tailNode.getUUID(),
+                        tailNodeName));
+                writeModifiedColour("color", false, rawTailNode != this.lastTailNode);
+                htmlWriter.write(END_NODE_ATTRIBUTES);
+            }
         }
         htmlWriter.write("  edge[tailclip=false,arrowtail=dot,dir=both" + END_NODE_ATTRIBUTES);
 
