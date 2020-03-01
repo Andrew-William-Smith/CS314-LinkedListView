@@ -57,6 +57,19 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
     /** Reference from a LinkedList node to the next node. */
     private Field nodeNextField;
 
+    /** Colour in which to highlight new list components. */
+    private static final String NEW_COLOUR = "blue";
+    /** Colour in which to highlight modified list components. */
+    private static final String MODIFIED_COLOUR = "red";
+    /** Character sequence at the end of a node's attribute declaration. */
+    private static final String END_NODE_ATTRIBUTES = "];\n";
+    /** Cache of GraphViz Dot list nodes generated on a previous operation. */
+    private HashMap<Object, DotListNode> lastDotNodes;
+    /** Header node in the previous operation. */
+    private Object lastHeadNode;
+    /** Tail node in the previous operation. */
+    private Object lastTailNode;
+
     /** Global logger for status monitoring. */
     private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     /** Writer to specified output HTML file. */
@@ -96,7 +109,7 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
             + "<script>\n"
             + "d3.select('[id=\"%s\"]').graphviz().renderDot(`\n"
             + "strict digraph {\n"
-            + "  node[shape=record];\n"
+            + "  node[shape=record" + END_NODE_ATTRIBUTES
             + "  rankdir=LR;\n";
     private static final String DIAGRAMME_POSTAMBLE = "}`);\n</script>\n";
     //endregion
@@ -135,6 +148,11 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
         this.nodePrevField = this.resolveNodeField("prev");
         this.nodeDataField = this.resolveNodeField("data");
         this.nodeNextField = this.resolveNodeField("next");
+
+        // Initial diff-checking state
+        lastDotNodes = new HashMap<>();
+        lastHeadNode = null;
+        lastTailNode = null;
 
         // Create file and write preamble
         try {
@@ -244,6 +262,24 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
             LOGGER.severe("Operation " + operationName + ": " + e.getMessage());
         }
     }
+
+    /**
+     * Write a GraphViz colour attribute to htmlWriter if an aspect of the graph was modified.
+     * @param attributeName The colour attribute to write if modified.
+     * @param comma Whether the attribute name needs to be preceded by a comma.
+     * @param added Whether this component of the graph was added in this stage.
+     * @param modified Whether this component of the graph was not added, but modified in this stage.
+     */
+    private void writeModifiedColour(String attributeName, boolean comma, boolean added, boolean modified)
+            throws IOException {
+        String colour = added ? NEW_COLOUR : MODIFIED_COLOUR;
+        if (modified || added) {
+            if (comma) {
+                htmlWriter.write(",");
+            }
+            htmlWriter.write(String.format("%s=%s", attributeName, colour));
+        }
+    }
     //endregion
 
     //region List rendering
@@ -259,12 +295,15 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
 
         // Process from header node
         this.writeExternalVariable(headerNodeName, this.headNodeField.getName());
-        DotListNode headNode = this.processNode(this.headNodeField.get(this), dotNodes);
+        Object rawHeadNode = this.headNodeField.get(this);
+        DotListNode headNode = this.processNode(rawHeadNode, dotNodes);
         // Process from tail node (if extant)
+        Object rawTailNode = null;
         DotListNode tailNode = null;
         if (this.tailNodeField != null) {
             this.writeExternalVariable(tailNodeName, this.tailNodeField.getName());
-            tailNode = this.processNode(this.tailNodeField.get(this), dotNodes);
+            rawTailNode = this.tailNodeField.get(this);
+            tailNode = this.processNode(rawTailNode, dotNodes);
         }
 
         // Print nodes
@@ -276,20 +315,29 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
         if (headNode == null) {
             this.writeNullExternalNode(headerNodeName);
         } else {
-            htmlWriter.write(String.format("  %s -> %s%s;\n", headerNodeName, DotListNode.DOT_PREFIX,
+            htmlWriter.write(String.format("  %s -> %s%s [", headerNodeName, DotListNode.DOT_PREFIX,
                     headNode.getUUID()));
+            writeModifiedColour("color", false, false, rawHeadNode != lastHeadNode);
+            htmlWriter.write(END_NODE_ATTRIBUTES);
         }
         if (tailNode == null) {
             this.writeNullExternalNode(tailNodeName);
         } else {
-            htmlWriter.write(String.format("  %s%s -> %s [dir=back];\n", DotListNode.DOT_PREFIX, tailNode.getUUID(),
+            htmlWriter.write(String.format("  %s%s -> %s [dir=back", DotListNode.DOT_PREFIX, tailNode.getUUID(),
                     tailNodeName));
+            writeModifiedColour("color", true, false, rawTailNode != lastTailNode);
+            htmlWriter.write(END_NODE_ATTRIBUTES);
         }
-        htmlWriter.write("  edge[tailclip=false,arrowtail=dot,dir=both];\n");
+        htmlWriter.write("  edge[tailclip=false,arrowtail=dot,dir=both" + END_NODE_ATTRIBUTES);
 
         for (DotListNode node : dotNodes.values()) {
             node.writeDotEdges(dotNodes);
         }
+
+        // Store this run's node cache
+        lastDotNodes = dotNodes;
+        lastHeadNode = rawHeadNode;
+        lastTailNode = rawTailNode;
     }
 
     /**
@@ -299,7 +347,7 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
      */
     private void writeExternalVariable(String nodeName, String name) throws IOException {
         htmlWriter.write("  " + nodeName + "[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,"
-                + "shape=ellipse,label=\"" + name + "\"];\n");
+                + "shape=ellipse,label=\"" + name + "\"" + END_NODE_ATTRIBUTES);
     }
 
     /**
@@ -307,7 +355,7 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
      * @param nameNode The name of the node containing this variable's name.
      */
     private void writeNullExternalNode(String nameNode) throws IOException {
-        htmlWriter.write("  " + nameNode + "_NULL [shape=circle,label=<<B>∅</B>>];\n");
+        htmlWriter.write("  " + nameNode + "_NULL [shape=circle,label=<<B>∅</B>>" + END_NODE_ATTRIBUTES);
         htmlWriter.write("  " + nameNode + " -> " + nameNode + "_NULL;\n");
     }
 
@@ -339,15 +387,21 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
     }
 
     /**
-     * Lazily-processed representation of a single LinkedList node.  Instances of this class should not be persisted
+     * GraphViz Dot-formatted deep copy of a single LinkedList node.  Instances of this class should not be persisted
      * longer than a single method due to potential changes in the structure of the LinkedList itself.
      */
     private class DotListNode {
         /** Prefix to prepend to Dot node names. */
         public static final String DOT_PREFIX = "__NODE_";
 
-        /** The LinkedList node upon which this node is based. */
+        /** The LinkedList node on which this node is based. */
         private Object baseNode;
+        /** A reference to the previous node in the LinkedList. */
+        private Object prevNode;
+        /** The data stored in (referenced by) this object. */
+        private E data;
+        /** A reference to the following node in the LinkedList. */
+        private Object nextNode;
         /** A unique identifier for this node, used in Dot graph generation because Java hash codes can collide. */
         private UUID uuid;
 
@@ -357,9 +411,14 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
          *
          * @param baseNode The LinkedList node on which to base this node.
          */
-        public DotListNode(Object baseNode) {
+        @SuppressWarnings("unchecked")
+        public DotListNode(Object baseNode) throws IllegalAccessException {
             this.uuid = UUID.randomUUID();
             this.baseNode = baseNode;
+            // Deep copy from base node
+            this.prevNode = nodePrevField.get(baseNode);
+            this.data = (E) nodeDataField.get(baseNode);
+            this.nextNode = nodeNextField.get(baseNode);
         }
 
         /**
@@ -372,68 +431,69 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
         }
 
         /**
-         * @return The LinkedList node preceding this node.
+         * @return The previous object in this LinkedList.
          */
-        public Object getPrevNode() throws IllegalAccessException {
-            return nodePrevField.get(this.baseNode);
+        public Object getPrevNode() {
+            return this.prevNode;
         }
 
         /**
-         * @return The data contained in (referenced by) the LinkedList node backing this one.
+         * @return The following object in this LinkedList.
          */
-        @SuppressWarnings("unchecked")
-        private E getData() throws IllegalAccessException {
-            return (E) nodeDataField.get(this.baseNode);
-        }
-
-        /**
-         * @return The LinkedList node following this node.
-         */
-        public Object getNextNode() throws IllegalAccessException {
-            return nodeNextField.get(this.baseNode);
+        public Object getNextNode() {
+            return this.nextNode;
         }
 
         /**
          * Write this node to htmlWriter as a GraphViz Dot node.
          */
-        public void writeDot() throws IllegalAccessException, IOException {
+        public void writeDot() throws IOException {
             // Write UUID by integer value, as Dot does not allow hyphens in node names
             htmlWriter.write("  " + DOT_PREFIX + this.getUUID() + "[label=\"");
 
-            // Get LinkedList node properties
-            Object prevNode = this.getPrevNode();
-            E data = this.getData();
-            Object nextNode = this.getNextNode();
-
-            if (prevNode == null && data == null && nextNode == null) {
+            if (this.prevNode == null && this.data == null && this.nextNode == null) {
                 // Null node: print a simple representation of null
                 htmlWriter.write("null");
             } else {
                 // Node with value: print a record node
-                String dataStr = (data == null) ? " null" : " " + data.toString().replaceAll("\"", "\\\"");
+                String dataStr = (this.data == null) ? " null" : " " + this.data.toString().replaceAll("\"", "\\\"");
                 htmlWriter.write("{<prev>|<data>" + dataStr + "|<next>}");
             }
 
-            htmlWriter.write("\"];\n");
+            htmlWriter.write("\"");
+            // Highlight newly added nodes
+            boolean newNode = !lastDotNodes.containsKey(this.baseNode);
+            writeModifiedColour("color", true, newNode, false);
+            // Highlight data according to modification type
+            writeModifiedColour("fontcolor", true, newNode, !newNode
+                    && !lastDotNodes.get(this.baseNode).data.equals(this.data));
+            htmlWriter.write(END_NODE_ATTRIBUTES);
         }
 
         /**
          * Write this node's previous and next references to htmlWriter as Graphviz Dot edges.
          * @param nodeCache A mapping from LinkedList nodes to DotListNodes used to get node UUIDs.
          */
-        public void writeDotEdges(HashMap<Object, DotListNode> nodeCache) throws IllegalAccessException, IOException {
+        public void writeDotEdges(HashMap<Object, DotListNode> nodeCache) throws IOException {
+            // Do not highlight edges for new nodes
+            boolean newNode = !lastDotNodes.containsKey(this.baseNode);
+
             // Print edge connecting to next (must come first to preserve rankdir)
-            Object nextNode = this.getNextNode();
-            if (nextNode != null) {
-                htmlWriter.write(String.format("  %s%s:next:c -> %s%s:prev:nw;\n",
-                        DOT_PREFIX, this.getUUID(), DOT_PREFIX, nodeCache.get(nextNode).getUUID()));
+            if (this.nextNode != null) {
+                htmlWriter.write(String.format("  %s%s:next:c -> %s%s:prev:nw [",
+                        DOT_PREFIX, this.getUUID(), DOT_PREFIX, nodeCache.get(this.nextNode).getUUID()));
+                writeModifiedColour("color", false, newNode, !newNode
+                        && (lastDotNodes.get(this.baseNode).nextNode != this.nextNode));
+                htmlWriter.write(END_NODE_ATTRIBUTES);
             }
 
             // Print edge connecting to previous
-            Object prevNode = this.getPrevNode();
-            if (prevNode != null) {
-                htmlWriter.write(String.format("  %s%s:prev:c -> %s%s:next:se;\n",
-                        DOT_PREFIX, this.getUUID(), DOT_PREFIX, nodeCache.get(prevNode).getUUID()));
+            if (this.prevNode != null) {
+                htmlWriter.write(String.format("  %s%s:prev:c -> %s%s:next:se [",
+                        DOT_PREFIX, this.getUUID(), DOT_PREFIX, nodeCache.get(this.prevNode).getUUID()));
+                writeModifiedColour("color", false, newNode, !newNode
+                        && (lastDotNodes.get(this.baseNode).prevNode != this.prevNode));
+                htmlWriter.write(END_NODE_ATTRIBUTES);
             }
         }
     }
