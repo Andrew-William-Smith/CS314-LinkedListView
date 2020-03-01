@@ -282,17 +282,13 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
     /**
      * Write a GraphViz colour attribute to htmlWriter if an aspect of the graph was modified.
      * @param attributeName The colour attribute to write if modified.
-     * @param comma Whether the attribute name needs to be preceded by a comma.
      * @param added Whether this component of the graph was added in this stage.
      * @param modified Whether this component of the graph was not added, but modified in this stage.
      */
-    private void writeModifiedColour(String attributeName, boolean comma, boolean added, boolean modified)
+    private void writeModifiedColour(String attributeName, boolean added, boolean modified)
             throws IOException {
         String colour = added ? NEW_COLOUR : MODIFIED_COLOUR;
         if (this.highlightModifications && (modified || added)) {
-            if (comma) {
-                htmlWriter.write(",");
-            }
             htmlWriter.write(String.format("%s=%s", attributeName, colour));
         }
     }
@@ -333,15 +329,15 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
         } else {
             htmlWriter.write(String.format("  %s -> %s%s [", headerNodeName, DotListNode.DOT_PREFIX,
                     headNode.getUUID()));
-            writeModifiedColour("color", false, false, rawHeadNode != this.lastHeadNode);
+            writeModifiedColour("color", false, rawHeadNode != this.lastHeadNode);
             htmlWriter.write(END_NODE_ATTRIBUTES);
         }
         if (tailNode == null) {
             this.writeNullExternalNode(tailNodeName, this.lastTailNode);
         } else {
-            htmlWriter.write(String.format("  %s%s -> %s [dir=back", DotListNode.DOT_PREFIX, tailNode.getUUID(),
+            htmlWriter.write(String.format("  %s%s -> %s [dir=back,", DotListNode.DOT_PREFIX, tailNode.getUUID(),
                     tailNodeName));
-            writeModifiedColour("color", true, false, rawTailNode != this.lastTailNode);
+            writeModifiedColour("color", false, rawTailNode != this.lastTailNode);
             htmlWriter.write(END_NODE_ATTRIBUTES);
         }
         htmlWriter.write("  edge[tailclip=false,arrowtail=dot,dir=both" + END_NODE_ATTRIBUTES);
@@ -374,7 +370,7 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
     private void writeNullExternalNode(String nameNode, Object lastTarget) throws IOException {
         htmlWriter.write("  " + nameNode + "_NULL [shape=circle,label=<<B>∅</B>>" + END_NODE_ATTRIBUTES);
         htmlWriter.write("  " + nameNode + " -> " + nameNode + "_NULL [");
-        writeModifiedColour("color", false, false, lastTarget == null);
+        writeModifiedColour("color", false, lastTarget == null);
         htmlWriter.write(END_NODE_ATTRIBUTES);
     }
 
@@ -479,12 +475,15 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
                 htmlWriter.write("{<prev>|<data>" + dataStr + "|<next>}");
             }
 
-            htmlWriter.write("\"");
+            htmlWriter.write("\",");
             // Highlight newly added nodes
             boolean newNode = !lastDotNodes.containsKey(this.baseNode);
-            writeModifiedColour("color", true, newNode, false);
+            writeModifiedColour("color", newNode, false);
+            if (newNode) {
+                htmlWriter.write(",");
+            }
             // Highlight data according to modification type
-            writeModifiedColour("fontcolor", true, newNode, !newNode
+            writeModifiedColour("fontcolor", newNode, !newNode
                     && !lastDotNodes.get(this.baseNode).data.equals(this.data));
             htmlWriter.write(END_NODE_ATTRIBUTES);
         }
@@ -501,7 +500,7 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
             if (this.nextNode != null) {
                 htmlWriter.write(String.format("  %s%s:next:c -> %s%s:prev:nw [",
                         DOT_PREFIX, this.getUUID(), DOT_PREFIX, nodeCache.get(this.nextNode).getUUID()));
-                writeModifiedColour("color", false, newNode, !newNode
+                writeModifiedColour("color", newNode, !newNode
                         && (lastDotNodes.get(this.baseNode).nextNode != this.nextNode));
                 htmlWriter.write(END_NODE_ATTRIBUTES);
             }
@@ -510,7 +509,7 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
             if (this.prevNode != null) {
                 htmlWriter.write(String.format("  %s%s:prev:c -> %s%s:next:se [",
                         DOT_PREFIX, this.getUUID(), DOT_PREFIX, nodeCache.get(this.prevNode).getUUID()));
-                writeModifiedColour("color", false, newNode, !newNode
+                writeModifiedColour("color", newNode, !newNode
                         && (lastDotNodes.get(this.baseNode).prevNode != this.prevNode));
                 htmlWriter.write(END_NODE_ATTRIBUTES);
             }
