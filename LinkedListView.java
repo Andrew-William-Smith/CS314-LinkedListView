@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -128,12 +129,14 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
     private static final String DIAGRAMME_PREAMBLE =
             "<div id=\"%s\"></div>\n"
             + "<script>\n"
-            + "d3.select('[id=\"%s\"]').graphviz().renderDot(`\n"
+            + "d3.select('[id=\"%s\"]').graphviz().engine('dot').renderDot(`\n"
             + "strict digraph {\n"
             + "  node[shape=record,penwidth=1.5" + END_NODE_ATTRIBUTES
             + "  edge[penwidth=2" + END_NODE_ATTRIBUTES
             + "  rankdir=LR;\n"
-            + "  bgcolor=transparent;\n";
+            + "  bgcolor=transparent;\n"
+            + "  splines=true;\n"
+            + "  ordering=out;\n";
     private static final String DIAGRAMME_POSTAMBLE = "}`);\n</script>\n";
     //endregion
 
@@ -321,29 +324,30 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
      * Write a GraphViz Dot representation of this list to htmlWriter.
      */
     public void writeDiagramme() throws IllegalAccessException, IOException {
-        // Store DotListNodes in a map: LinkedList node -> DotListNode
-        HashMap<Object, DotListNode> dotNodes = new HashMap<>();
-
         final String headerNodeName = "__HEADER_NAME";
         final String tailNodeName = "__TAIL_NAME";
+
+        // Store DotListNodes in a map: LinkedList node -> DotListNode
+        HashMap<Object, DotListNode> dotNodes = new HashMap<>();
+        ArrayList<ArrayList<DotListNode>> nodeLevels = new ArrayList<>();
+        int[] levelLimits = new int[] {Integer.MAX_VALUE, Integer.MIN_VALUE};
 
         // Process from header node
         this.writeExternalVariable(headerNodeName, this.headNodeField.getName());
         Object rawHeadNode = this.headNodeField.get(this);
-        DotListNode headNode = this.processNode(rawHeadNode, dotNodes);
+        DotListNode headNode = this.processNode(rawHeadNode, dotNodes, nodeLevels, 0, levelLimits);
         // Process from tail node (if extant)
         Object rawTailNode = null;
         DotListNode tailNode = null;
         if (this.tailNodeField != null) {
             this.writeExternalVariable(tailNodeName, this.tailNodeField.getName());
             rawTailNode = this.tailNodeField.get(this);
-            tailNode = this.processNode(rawTailNode, dotNodes);
+            // In a properly structured list, the tail should have the maximum level
+            tailNode = this.processNode(rawTailNode, dotNodes, nodeLevels, levelLimits[1], levelLimits);
         }
 
-        // Print nodes
-        for (DotListNode node : dotNodes.values()) {
-            node.writeDot();
-        }
+        // Print nodes at each level
+        this.printRankedNodes(nodeLevels);
 
         // Print edges
         if (headNode == null) {
@@ -368,6 +372,15 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
 
         for (DotListNode node : dotNodes.values()) {
             node.writeDotEdges(dotNodes);
+        }
+
+        // Write dummy edges
+        if (nodeLevels.size() > 1) {
+            htmlWriter.write("  __DUMMY_0");
+            for (int i = 1; i < nodeLevels.size(); i++) {
+                htmlWriter.write(" -> __DUMMY_" + i);
+            }
+            htmlWriter.write(" [style=invis" + END_NODE_ATTRIBUTES);
         }
 
         // Store this run's node cache
@@ -402,10 +415,13 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
      * Recursively populate a map from LinkedList nodes onto DotListNodes, beginning at the specified node.
      * @param startNode The node at which to start populating the map.
      * @param nodeCache The map into which to store node mappings.
+     * @param levelNodes A list of nodes in each level of the rendered graph.
+     * @param level The level at which this node should be displayed in diagrammes.
+     * @param levelLimits int[2] storing the [minimum, maximum] level values thus far.
      * @return The DotListNode corresponding to startNode.
      */
-    private DotListNode processNode(Object startNode, HashMap<Object, DotListNode> nodeCache)
-            throws IllegalAccessException {
+    private DotListNode processNode(Object startNode, HashMap<Object, DotListNode> nodeCache,
+            ArrayList<ArrayList<DotListNode>> levelNodes, int level, int[] levelLimits) throws IllegalAccessException {
         // If start node is null, do nothing
         if (startNode == null) {
             return null;
@@ -416,13 +432,43 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
             return nodeCache.get(startNode);
         }
 
-        // Otherwise, create a new mapping and recurse
+        // Otherwise, create a new mapping
         DotListNode mappedNode = new DotListNode(startNode);
         nodeCache.put(startNode, mappedNode);
-        this.processNode(mappedNode.getPrevNode(), nodeCache);
-        this.processNode(mappedNode.getNextNode(), nodeCache);
+        // Adjust level bounds and add to level
+        if (level < levelLimits[0]) {
+            levelLimits[0] = level;
+            ArrayList<DotListNode> newLevel = new ArrayList<>();
+            newLevel.add(mappedNode);
+            levelNodes.add(0, newLevel);
+        } else if (level > levelLimits[1]) {
+            levelLimits[1] = level;
+            ArrayList<DotListNode> newLevel = new ArrayList<>();
+            newLevel.add(mappedNode);
+            levelNodes.add(newLevel);
+        } else {
+            levelNodes.get(level - levelLimits[0]).add(mappedNode);
+        }
 
+        this.processNode(mappedNode.getNextNode(), nodeCache, levelNodes, level + 1, levelLimits);
+        this.processNode(mappedNode.getPrevNode(), nodeCache, levelNodes, level - 1, levelLimits);
         return mappedNode;
+    }
+
+    /**
+     * Print the nodes in this list, grouped by their levels.
+     * @param levelNodes The nodes in the list within each level of the list.
+     */
+    private void printRankedNodes(ArrayList<ArrayList<DotListNode>> levelNodes) throws IOException {
+        for (int level = 0; level < levelNodes.size(); level++) {
+            // Write level header
+            htmlWriter.write("  {rank=same; __DUMMY_" + level + "[shape=none,label=\"\",height=0,width=0]; ");
+            for (DotListNode node : levelNodes.get(level)) {
+                node.writeDot();
+            }
+
+            htmlWriter.write("}\n");
+        }
     }
 
     /**
@@ -502,41 +548,69 @@ public class LinkedListView<E> extends LinkedList<E> implements AutoCloseable {
             htmlWriter.write("\",");
             // Highlight newly added nodes
             boolean newNode = !lastDotNodes.containsKey(this.baseNode);
+            E lastData = null;
             writeModifiedColour("color", newNode, false);
             if (newNode) {
                 htmlWriter.write(",");
+            } else {
+                lastData = lastDotNodes.get(this.baseNode).data;
             }
+
             // Highlight data according to modification type
-            writeModifiedColour("fontcolor", newNode, !newNode
-                    && !lastDotNodes.get(this.baseNode).data.equals(this.data));
-            htmlWriter.write(END_NODE_ATTRIBUTES);
+            boolean modified = (lastData == null && data != null)
+                    || (lastData != null && data == null)
+                    || (lastData != null && !lastData.equals(this.data));
+            writeModifiedColour("fontcolor", newNode, !newNode && modified);
+            htmlWriter.write("];");
         }
 
         /**
          * Write this node's previous and next references to htmlWriter as Graphviz Dot edges.
          * @param nodeCache A mapping from LinkedList nodes to DotListNodes used to get node UUIDs.
          */
-        public void writeDotEdges(HashMap<Object, DotListNode> nodeCache) throws IOException {
+        public void writeDotEdges(HashMap<Object, DotListNode> nodeCache) throws IOException, IllegalAccessException {
             // Do not highlight edges for new nodes
             boolean newNode = !lastDotNodes.containsKey(this.baseNode);
 
             // Print edge connecting to next (must come first to preserve rankdir)
             if (this.nextNode != null) {
-                htmlWriter.write(String.format("  %s%s:next:c -> %s%s:prev:nw [",
+                htmlWriter.write(String.format("  %s%s:next:c -> %s%s:nw [",
                         DOT_PREFIX, this.getUUID(), DOT_PREFIX, nodeCache.get(this.nextNode).getUUID()));
                 writeModifiedColour("color", newNode, !newNode
                         && (lastDotNodes.get(this.baseNode).nextNode != this.nextNode));
+                // Unconstrain references to header
+                if (edgeConnectsHeader(this.baseNode, this.nextNode)) {
+                    htmlWriter.write(" constraint=false");
+                }
                 htmlWriter.write(END_NODE_ATTRIBUTES);
             }
 
             // Print edge connecting to previous
             if (this.prevNode != null) {
-                htmlWriter.write(String.format("  %s%s:prev:c -> %s%s:next:se [",
+                htmlWriter.write(String.format("  %s%s:prev:c -> %s%s:se [",
                         DOT_PREFIX, this.getUUID(), DOT_PREFIX, nodeCache.get(this.prevNode).getUUID()));
                 writeModifiedColour("color", newNode, !newNode
                         && (lastDotNodes.get(this.baseNode).prevNode != this.prevNode));
+                // Unconstrain references to header
+                if (edgeConnectsHeader(this.baseNode, this.prevNode)) {
+                    htmlWriter.write(" constraint=false");
+                }
                 htmlWriter.write(END_NODE_ATTRIBUTES);
             }
+        }
+
+        /**
+         * Determine whether the either of the specified nodes in an edge is the
+         * list's header node.  Used to improve rendering of circular linked
+         * lists.
+         *
+         * @param node1 The first node in the edge.
+         * @param node2 The second node in the edge.
+         * @return true if node1 or node2 is the header node, false otherwise.
+         */
+        private boolean edgeConnectsHeader(Object node1, Object node2) throws IllegalAccessException {
+            Object headerNode = headNodeField.get(LinkedListView.this);
+            return (node1 == headerNode) || (node2 == headerNode);
         }
     }
     //endregion
