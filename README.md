@@ -17,7 +17,7 @@ As `LinkedListView` inherits from `LinkedList`, the public interface is nearly i
 As such, the only part of your code you should need to change is the declaration of a `LinkedList`.
 `LinkedListView` must be declared inside a `try`-with-resources statement as follows:
 ```java
-try (LinkedList<E> list = new LinkedListView<>("OutFile.html")) {
+try (LinkedListView<E> list = new LinkedListView<>("OutFile.html")) {
     // Test code here
 } catch (NoSuchFieldException e) {
     // The structure of your LinkedList could not be analysed
