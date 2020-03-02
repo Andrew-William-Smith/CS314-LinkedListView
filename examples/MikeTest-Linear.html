@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LinkedList operation transcript at 2020-03-02 14:54:01.457</title>
+<style>html, body {
+  background-image: url("https://www.cs.utexas.edu/~scottm/images/yellow_rock.gif");
+}</style>
+</head>
+<body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://unpkg.com/viz.js@1.8.0/viz.js"></script>
+<script src="https://unpkg.com/d3-graphviz@0.1.2/build/d3-graphviz.js"></script>
+<h1>CS 314 <code>LinkedList</code> operation transcript</h1>
+<h3>Time generated: 2020-03-02 14:54:01.457</h3>
+<p>Elements highlighted in <span style="font-weight: 600; color: blue;">blue</span> were <strong>added</strong> as a result of the last operation.</p>
+<p>Elements highlighted in <span style="font-weight: 600; color: red;">red</span> were <strong>modified</strong> as a result of the last operation.</p>
+<hr/>
+<h2><code>LinkedList()</code> at 2020-03-02 14:54:01.463 from <code>LinkedListView.java:151</code></h2>
+<div id="3f0f6d68-7ed1-4825-b589-f842bb434013"></div>
+<script>
+d3.select('[id="3f0f6d68-7ed1-4825-b589-f842bb434013"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  __HEADER_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __HEADER_NAME -> __HEADER_NAME_NULL [color=red];
+  __TAIL_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __TAIL_NAME -> __TAIL_NAME_NULL [color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h4><code>toString()</code> at 2020-03-02 14:54:01.467 from <code>MikeTest.java:22</code></h4>
+<h2><code>add(A)</code> at 2020-03-02 14:54:01.468 from <code>MikeTest.java:29</code></h2>
+<div id="98a2adb7-26b9-4aee-8a11-f6ee9ce1e8f8"></div>
+<script>
+d3.select('[id="98a2adb7-26b9-4aee-8a11-f6ee9ce1e8f8"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_1606100184148635163412475082904562563754[label="{<prev>|<data> A|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_1606100184148635163412475082904562563754 [color=red];
+  __NODE_1606100184148635163412475082904562563754 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h4><code>get(0)</code> at 2020-03-02 14:54:01.481 from <code>MikeTest.java:30</code></h4>
+<h4><code>size()</code> at 2020-03-02 14:54:01.481 from <code>MikeTest.java:37</code></h4>
+<h2><code>remove(0)</code> at 2020-03-02 14:54:01.482 from <code>MikeTest.java:44</code></h2>
+<div id="888330a0-1fba-4cf1-8ecd-ff22e82a0a6b"></div>
+<script>
+d3.select('[id="888330a0-1fba-4cf1-8ecd-ff22e82a0a6b"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  __HEADER_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __HEADER_NAME -> __HEADER_NAME_NULL [];
+  __TAIL_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __TAIL_NAME -> __TAIL_NAME_NULL [];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h4><code>toString()</code> at 2020-03-02 14:54:01.483 from <code>MikeTest.java:52</code></h4>
+<h4><code>size()</code> at 2020-03-02 14:54:01.483 from <code>MikeTest.java:59</code></h4>
+<h2><code>add(A)</code> at 2020-03-02 14:54:01.484 from <code>MikeTest.java:66</code></h2>
+<div id="f4c11a25-1ca0-4bf2-a236-0c04064883f1"></div>
+<script>
+d3.select('[id="f4c11a25-1ca0-4bf2-a236-0c04064883f1"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_1375710212370296356413743373783427294157[label="{<prev>|<data> A|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_1375710212370296356413743373783427294157 [color=red];
+  __NODE_1375710212370296356413743373783427294157 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h2><code>add(B)</code> at 2020-03-02 14:54:01.485 from <code>MikeTest.java:67</code></h2>
+<div id="85c75097-1cef-4222-913f-013e666b5977"></div>
+<script>
+d3.select('[id="85c75097-1cef-4222-913f-013e666b5977"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_776109246103809362310813658969447855738[label="{<prev>|<data> A|<next>}",];}
+  {rank=same; __DUMMY_1[shape=none,label="",height=0,width=0];   __NODE_110078515664884401289422259739731463263[label="{<prev>|<data> B|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_776109246103809362310813658969447855738 [];
+  __NODE_110078515664884401289422259739731463263 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+  __NODE_776109246103809362310813658969447855738:next:c -> __NODE_110078515664884401289422259739731463263:nw [color=red constraint=false];
+  __NODE_110078515664884401289422259739731463263:prev:c -> __NODE_776109246103809362310813658969447855738:se [color=blue constraint=false];
+  __DUMMY_0 -> __DUMMY_1 [style=invis];
+}`);
+</script>
+<h4><code>toString()</code> at 2020-03-02 14:54:01.487 from <code>MikeTest.java:68</code></h4>
+<h4><code>size()</code> at 2020-03-02 14:54:01.488 from <code>MikeTest.java:75</code></h4>
+<h2><code>makeEmpty()</code> at 2020-03-02 14:54:01.488 from <code>MikeTest.java:82</code></h2>
+<div id="3b77abb5-74c5-45a3-9d02-80da2a8518bc"></div>
+<script>
+d3.select('[id="3b77abb5-74c5-45a3-9d02-80da2a8518bc"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  __HEADER_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __HEADER_NAME -> __HEADER_NAME_NULL [];
+  __TAIL_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __TAIL_NAME -> __TAIL_NAME_NULL [];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h4><code>size()</code> at 2020-03-02 14:54:01.489 from <code>MikeTest.java:83</code></h4>
+<h2><code>makeEmpty()</code> at 2020-03-02 14:54:01.489 from <code>MikeTest.java:90</code></h2>
+<div id="3ec71f75-453c-4072-9df9-931bfb7ed808"></div>
+<script>
+d3.select('[id="3ec71f75-453c-4072-9df9-931bfb7ed808"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  __HEADER_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __HEADER_NAME -> __HEADER_NAME_NULL [color=red];
+  __TAIL_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __TAIL_NAME -> __TAIL_NAME_NULL [color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h4><code>size()</code> at 2020-03-02 14:54:01.490 from <code>MikeTest.java:91</code></h4>
+<h2><code>add(A)</code> at 2020-03-02 14:54:01.490 from <code>MikeTest.java:98</code></h2>
+<div id="cef2012a-4efe-40c6-952e-f1b0f3a2b05e"></div>
+<script>
+d3.select('[id="cef2012a-4efe-40c6-952e-f1b0f3a2b05e"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_1408391938711475234413393523005352888645[label="{<prev>|<data> A|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_1408391938711475234413393523005352888645 [color=red];
+  __NODE_1408391938711475234413393523005352888645 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h4><code>size()</code> at 2020-03-02 14:54:01.491 from <code>MikeTest.java:250</code></h4>
+<h4><code>iterator()</code> at 2020-03-02 14:54:01.491 from <code>MikeTest.java:251</code></h4>
+<h2><code>makeEmpty()</code> at 2020-03-02 14:54:01.492 from <code>MikeTest.java:110</code></h2>
+<div id="ab77fc7f-c79e-4159-b10a-d87cac0b18f2"></div>
+<script>
+d3.select('[id="ab77fc7f-c79e-4159-b10a-d87cac0b18f2"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  __HEADER_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __HEADER_NAME -> __HEADER_NAME_NULL [];
+  __TAIL_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __TAIL_NAME -> __TAIL_NAME_NULL [];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h4><code>size()</code> at 2020-03-02 14:54:01.493 from <code>MikeTest.java:250</code></h4>
+<h4><code>iterator()</code> at 2020-03-02 14:54:01.493 from <code>MikeTest.java:251</code></h4>
+<h2><code>insert(0, A)</code> at 2020-03-02 14:54:01.494 from <code>MikeTest.java:123</code></h2>
+<div id="c3fd5d3b-1bc6-4a3c-ad71-13dccfedf3c9"></div>
+<script>
+d3.select('[id="c3fd5d3b-1bc6-4a3c-ad71-13dccfedf3c9"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_869911357102878263513144911408642670594[label="{<prev>|<data> A|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_869911357102878263513144911408642670594 [color=red];
+  __NODE_869911357102878263513144911408642670594 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h4><code>size()</code> at 2020-03-02 14:54:01.495 from <code>MikeTest.java:250</code></h4>
+<h4><code>iterator()</code> at 2020-03-02 14:54:01.495 from <code>MikeTest.java:251</code></h4>
+<h2><code>makeEmpty()</code> at 2020-03-02 14:54:01.496 from <code>MikeTest.java:137</code></h2>
+<div id="63ffc714-9c23-418c-9160-18ae911d68f9"></div>
+<script>
+d3.select('[id="63ffc714-9c23-418c-9160-18ae911d68f9"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  __HEADER_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __HEADER_NAME -> __HEADER_NAME_NULL [];
+  __TAIL_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __TAIL_NAME -> __TAIL_NAME_NULL [];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h2><code>addFirst(A)</code> at 2020-03-02 14:54:01.496 from <code>MikeTest.java:138</code></h2>
+<div id="26388a3a-77ea-4487-a6eb-efce8e744418"></div>
+<script>
+d3.select('[id="26388a3a-77ea-4487-a6eb-efce8e744418"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_1531778480922186567410193974372098544826[label="{<prev>|<data> A|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_1531778480922186567410193974372098544826 [color=red];
+  __NODE_1531778480922186567410193974372098544826 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h4><code>size()</code> at 2020-03-02 14:54:01.497 from <code>MikeTest.java:250</code></h4>
+<h4><code>iterator()</code> at 2020-03-02 14:54:01.497 from <code>MikeTest.java:251</code></h4>
+<h2><code>removeFirst()</code> at 2020-03-02 14:54:01.498 from <code>MikeTest.java:152</code></h2>
+<div id="c3e5cb0f-027b-4720-8682-36b770db515a"></div>
+<script>
+d3.select('[id="c3e5cb0f-027b-4720-8682-36b770db515a"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  __HEADER_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __HEADER_NAME -> __HEADER_NAME_NULL [];
+  __TAIL_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __TAIL_NAME -> __TAIL_NAME_NULL [];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h4><code>size()</code> at 2020-03-02 14:54:01.498 from <code>MikeTest.java:250</code></h4>
+<h4><code>iterator()</code> at 2020-03-02 14:54:01.498 from <code>MikeTest.java:251</code></h4>
+<h2><code>makeEmpty()</code> at 2020-03-02 14:54:01.499 from <code>MikeTest.java:164</code></h2>
+<div id="1475b891-0397-4870-b921-2fd9cb18aab1"></div>
+<script>
+d3.select('[id="1475b891-0397-4870-b921-2fd9cb18aab1"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  __HEADER_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __HEADER_NAME -> __HEADER_NAME_NULL [color=red];
+  __TAIL_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __TAIL_NAME -> __TAIL_NAME_NULL [color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h2><code>addLast(A)</code> at 2020-03-02 14:54:01.500 from <code>MikeTest.java:166</code></h2>
+<div id="4d363876-69f0-4447-b7ce-f01391662422"></div>
+<script>
+d3.select('[id="4d363876-69f0-4447-b7ce-f01391662422"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_15384565551824420759770697269619971180[label="{<prev>|<data> A|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_15384565551824420759770697269619971180 [color=red];
+  __NODE_15384565551824420759770697269619971180 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h4><code>size()</code> at 2020-03-02 14:54:01.500 from <code>MikeTest.java:250</code></h4>
+<h4><code>iterator()</code> at 2020-03-02 14:54:01.501 from <code>MikeTest.java:251</code></h4>
+<h2><code>removeLast()</code> at 2020-03-02 14:54:01.501 from <code>MikeTest.java:179</code></h2>
+<div id="d6e9a8d9-941b-46b3-8450-0de0a115a664"></div>
+<script>
+d3.select('[id="d6e9a8d9-941b-46b3-8450-0de0a115a664"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  __HEADER_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __HEADER_NAME -> __HEADER_NAME_NULL [];
+  __TAIL_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __TAIL_NAME -> __TAIL_NAME_NULL [];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h4><code>size()</code> at 2020-03-02 14:54:01.502 from <code>MikeTest.java:250</code></h4>
+<h4><code>iterator()</code> at 2020-03-02 14:54:01.502 from <code>MikeTest.java:251</code></h4>
+<h2><code>makeEmpty()</code> at 2020-03-02 14:54:01.503 from <code>MikeTest.java:191</code></h2>
+<div id="184241b7-6137-4eb3-82e2-6887062d4728"></div>
+<script>
+d3.select('[id="184241b7-6137-4eb3-82e2-6887062d4728"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  __HEADER_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __HEADER_NAME -> __HEADER_NAME_NULL [color=red];
+  __TAIL_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __TAIL_NAME -> __TAIL_NAME_NULL [color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h2><code>add(A)</code> at 2020-03-02 14:54:01.503 from <code>MikeTest.java:192</code></h2>
+<div id="1a360857-f640-42c8-bc5c-48d276bf8405"></div>
+<script>
+d3.select('[id="1a360857-f640-42c8-bc5c-48d276bf8405"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_74376213721047536679736150735767895729[label="{<prev>|<data> A|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_74376213721047536679736150735767895729 [color=red];
+  __NODE_74376213721047536679736150735767895729 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h2><code>add(C)</code> at 2020-03-02 14:54:01.504 from <code>MikeTest.java:193</code></h2>
+<div id="01491214-35d3-46dd-80b2-a3d84f9731fe"></div>
+<script>
+d3.select('[id="01491214-35d3-46dd-80b2-a3d84f9731fe"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_377512741453570421610500496931028947419[label="{<prev>|<data> A|<next>}",];}
+  {rank=same; __DUMMY_1[shape=none,label="",height=0,width=0];   __NODE_248165525364822923710015290917774228956[label="{<prev>|<data> C|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_377512741453570421610500496931028947419 [];
+  __NODE_248165525364822923710015290917774228956 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+  __NODE_377512741453570421610500496931028947419:next:c -> __NODE_248165525364822923710015290917774228956:nw [color=red constraint=false];
+  __NODE_248165525364822923710015290917774228956:prev:c -> __NODE_377512741453570421610500496931028947419:se [color=blue constraint=false];
+  __DUMMY_0 -> __DUMMY_1 [style=invis];
+}`);
+</script>
+<h2><code>insert(1, B)</code> at 2020-03-02 14:54:01.505 from <code>MikeTest.java:194</code></h2>
+<div id="224e8f15-6022-4234-b328-404828d2c6a1"></div>
+<script>
+d3.select('[id="224e8f15-6022-4234-b328-404828d2c6a1"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_510521499599603647512401063913480163249[label="{<prev>|<data> A|<next>}",];}
+  {rank=same; __DUMMY_1[shape=none,label="",height=0,width=0];   __NODE_38195041127311147549969776833807862249[label="{<prev>|<data> B|<next>}",color=blue,fontcolor=blue];}
+  {rank=same; __DUMMY_2[shape=none,label="",height=0,width=0];   __NODE_1521318718260486247011687105064536362657[label="{<prev>|<data> C|<next>}",];}
+  __HEADER_NAME -> __NODE_510521499599603647512401063913480163249 [];
+  __NODE_1521318718260486247011687105064536362657 -> __TAIL_NAME [dir=back,];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+  __NODE_510521499599603647512401063913480163249:next:c -> __NODE_38195041127311147549969776833807862249:nw [color=red constraint=false];
+  __NODE_1521318718260486247011687105064536362657:prev:c -> __NODE_38195041127311147549969776833807862249:se [color=red];
+  __NODE_38195041127311147549969776833807862249:next:c -> __NODE_1521318718260486247011687105064536362657:nw [color=blue];
+  __NODE_38195041127311147549969776833807862249:prev:c -> __NODE_510521499599603647512401063913480163249:se [color=blue constraint=false];
+  __DUMMY_0 -> __DUMMY_1 -> __DUMMY_2 [style=invis];
+}`);
+</script>
+<h4><code>size()</code> at 2020-03-02 14:54:01.505 from <code>MikeTest.java:250</code></h4>
+<h4><code>iterator()</code> at 2020-03-02 14:54:01.506 from <code>MikeTest.java:251</code></h4>
+<h2><code>makeEmpty()</code> at 2020-03-02 14:54:01.506 from <code>MikeTest.java:207</code></h2>
+<div id="59891d41-5226-46af-b696-3c628aaaf9ee"></div>
+<script>
+d3.select('[id="59891d41-5226-46af-b696-3c628aaaf9ee"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  __HEADER_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __HEADER_NAME -> __HEADER_NAME_NULL [];
+  __TAIL_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __TAIL_NAME -> __TAIL_NAME_NULL [];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h2><code>add(A)</code> at 2020-03-02 14:54:01.507 from <code>MikeTest.java:208</code></h2>
+<div id="481a39e5-bb87-4d4b-93d0-b8d9d77a45d0"></div>
+<script>
+d3.select('[id="481a39e5-bb87-4d4b-93d0-b8d9d77a45d0"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_589519965536651083110879764377671939181[label="{<prev>|<data> A|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_589519965536651083110879764377671939181 [color=red];
+  __NODE_589519965536651083110879764377671939181 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h2><code>add(D)</code> at 2020-03-02 14:54:01.508 from <code>MikeTest.java:209</code></h2>
+<div id="671cf6c0-1385-4da7-9b91-1d69ce64ccab"></div>
+<script>
+d3.select('[id="671cf6c0-1385-4da7-9b91-1d69ce64ccab"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_1174972792257965639210776642996865813443[label="{<prev>|<data> A|<next>}",];}
+  {rank=same; __DUMMY_1[shape=none,label="",height=0,width=0];   __NODE_13301664880499292749749061199623531179[label="{<prev>|<data> D|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_1174972792257965639210776642996865813443 [];
+  __NODE_13301664880499292749749061199623531179 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+  __NODE_13301664880499292749749061199623531179:prev:c -> __NODE_1174972792257965639210776642996865813443:se [color=blue constraint=false];
+  __NODE_1174972792257965639210776642996865813443:next:c -> __NODE_13301664880499292749749061199623531179:nw [color=red constraint=false];
+  __DUMMY_0 -> __DUMMY_1 [style=invis];
+}`);
+</script>
+<h2><code>add(C)</code> at 2020-03-02 14:54:01.509 from <code>MikeTest.java:210</code></h2>
+<div id="9ed40fd7-bd8f-4e8a-83e6-3f8b249541e3"></div>
+<script>
+d3.select('[id="9ed40fd7-bd8f-4e8a-83e6-3f8b249541e3"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_559120920506415655111086099617518273374[label="{<prev>|<data> A|<next>}",];}
+  {rank=same; __DUMMY_1[shape=none,label="",height=0,width=0];   __NODE_85202116379225805149779283828615287069[label="{<prev>|<data> D|<next>}",];}
+  {rank=same; __DUMMY_2[shape=none,label="",height=0,width=0];   __NODE_1047972283068129407910397254421686502314[label="{<prev>|<data> C|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_559120920506415655111086099617518273374 [];
+  __NODE_1047972283068129407910397254421686502314 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+  __NODE_85202116379225805149779283828615287069:next:c -> __NODE_1047972283068129407910397254421686502314:nw [color=red];
+  __NODE_85202116379225805149779283828615287069:prev:c -> __NODE_559120920506415655111086099617518273374:se [ constraint=false];
+  __NODE_1047972283068129407910397254421686502314:prev:c -> __NODE_85202116379225805149779283828615287069:se [color=blue];
+  __NODE_559120920506415655111086099617518273374:next:c -> __NODE_85202116379225805149779283828615287069:nw [ constraint=false];
+  __DUMMY_0 -> __DUMMY_1 -> __DUMMY_2 [style=invis];
+}`);
+</script>
+<h2><code>set(1, B)</code> at 2020-03-02 14:54:01.510 from <code>MikeTest.java:211</code></h2>
+<div id="1cbe3968-b340-498b-ba89-ae3448881b18"></div>
+<script>
+d3.select('[id="1cbe3968-b340-498b-ba89-ae3448881b18"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_395373704356005625312830253638688720609[label="{<prev>|<data> A|<next>}",];}
+  {rank=same; __DUMMY_1[shape=none,label="",height=0,width=0];   __NODE_1159532787440636783210909530283199101558[label="{<prev>|<data> B|<next>}",fontcolor=red];}
+  {rank=same; __DUMMY_2[shape=none,label="",height=0,width=0];   __NODE_879535335643324419411128641250788929771[label="{<prev>|<data> C|<next>}",];}
+  __HEADER_NAME -> __NODE_395373704356005625312830253638688720609 [];
+  __NODE_879535335643324419411128641250788929771 -> __TAIL_NAME [dir=back,];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+  __NODE_1159532787440636783210909530283199101558:next:c -> __NODE_879535335643324419411128641250788929771:nw [];
+  __NODE_1159532787440636783210909530283199101558:prev:c -> __NODE_395373704356005625312830253638688720609:se [ constraint=false];
+  __NODE_879535335643324419411128641250788929771:prev:c -> __NODE_1159532787440636783210909530283199101558:se [];
+  __NODE_395373704356005625312830253638688720609:next:c -> __NODE_1159532787440636783210909530283199101558:nw [ constraint=false];
+  __DUMMY_0 -> __DUMMY_1 -> __DUMMY_2 [style=invis];
+}`);
+</script>
+<h4><code>size()</code> at 2020-03-02 14:54:01.511 from <code>MikeTest.java:250</code></h4>
+<h4><code>iterator()</code> at 2020-03-02 14:54:01.512 from <code>MikeTest.java:251</code></h4>
+<h2><code>makeEmpty()</code> at 2020-03-02 14:54:01.513 from <code>MikeTest.java:228</code></h2>
+<div id="146d06bc-4084-4bfa-9034-f5861cea5929"></div>
+<script>
+d3.select('[id="146d06bc-4084-4bfa-9034-f5861cea5929"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  __HEADER_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __HEADER_NAME -> __HEADER_NAME_NULL [];
+  __TAIL_NAME_NULL [shape=circle,label=<<B>∅</B>>];
+  __TAIL_NAME -> __TAIL_NAME_NULL [];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h2><code>add(A)</code> at 2020-03-02 14:54:01.513 from <code>MikeTest.java:229</code></h2>
+<div id="1461e6ce-8490-45db-accd-afd6d51fb293"></div>
+<script>
+d3.select('[id="1461e6ce-8490-45db-accd-afd6d51fb293"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_104985598145955832413655417839154239907[label="{<prev>|<data> A|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_104985598145955832413655417839154239907 [color=red];
+  __NODE_104985598145955832413655417839154239907 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+}`);
+</script>
+<h2><code>add(B)</code> at 2020-03-02 14:54:01.514 from <code>MikeTest.java:230</code></h2>
+<div id="b68962b9-e4f4-464c-9161-1b75a884e990"></div>
+<script>
+d3.select('[id="b68962b9-e4f4-464c-9161-1b75a884e990"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_137808652238528734713714306886209139360[label="{<prev>|<data> A|<next>}",];}
+  {rank=same; __DUMMY_1[shape=none,label="",height=0,width=0];   __NODE_1377437991832625166712035224020639604860[label="{<prev>|<data> B|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_137808652238528734713714306886209139360 [];
+  __NODE_1377437991832625166712035224020639604860 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+  __NODE_1377437991832625166712035224020639604860:prev:c -> __NODE_137808652238528734713714306886209139360:se [color=blue constraint=false];
+  __NODE_137808652238528734713714306886209139360:next:c -> __NODE_1377437991832625166712035224020639604860:nw [color=red constraint=false];
+  __DUMMY_0 -> __DUMMY_1 [style=invis];
+}`);
+</script>
+<h2><code>add(C)</code> at 2020-03-02 14:54:01.515 from <code>MikeTest.java:231</code></h2>
+<div id="0053af2d-16a9-4839-aeac-ccec383deef7"></div>
+<script>
+d3.select('[id="0053af2d-16a9-4839-aeac-ccec383deef7"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_1731821652801115197712664513854662906436[label="{<prev>|<data> A|<next>}",];}
+  {rank=same; __DUMMY_1[shape=none,label="",height=0,width=0];   __NODE_125881280592204457569474570472663836956[label="{<prev>|<data> B|<next>}",];}
+  {rank=same; __DUMMY_2[shape=none,label="",height=0,width=0];   __NODE_438413317408681305811233510092232202463[label="{<prev>|<data> C|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_1731821652801115197712664513854662906436 [];
+  __NODE_438413317408681305811233510092232202463 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+  __NODE_125881280592204457569474570472663836956:next:c -> __NODE_438413317408681305811233510092232202463:nw [color=red];
+  __NODE_125881280592204457569474570472663836956:prev:c -> __NODE_1731821652801115197712664513854662906436:se [ constraint=false];
+  __NODE_438413317408681305811233510092232202463:prev:c -> __NODE_125881280592204457569474570472663836956:se [color=blue];
+  __NODE_1731821652801115197712664513854662906436:next:c -> __NODE_125881280592204457569474570472663836956:nw [ constraint=false];
+  __DUMMY_0 -> __DUMMY_1 -> __DUMMY_2 [style=invis];
+}`);
+</script>
+<h2><code>add(D)</code> at 2020-03-02 14:54:01.517 from <code>MikeTest.java:232</code></h2>
+<div id="0337e9ce-65da-4b8d-b4f5-6d6251e79f35"></div>
+<script>
+d3.select('[id="0337e9ce-65da-4b8d-b4f5-6d6251e79f35"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_859481343120121860311017567479544154355[label="{<prev>|<data> A|<next>}",];}
+  {rank=same; __DUMMY_1[shape=none,label="",height=0,width=0];   __NODE_1507102238678432476213379539040913586897[label="{<prev>|<data> B|<next>}",];}
+  {rank=same; __DUMMY_2[shape=none,label="",height=0,width=0];   __NODE_1409407060489347369513443616486247791924[label="{<prev>|<data> C|<next>}",];}
+  {rank=same; __DUMMY_3[shape=none,label="",height=0,width=0];   __NODE_874031118731118339010086133474508695330[label="{<prev>|<data> D|<next>}",color=blue,fontcolor=blue];}
+  __HEADER_NAME -> __NODE_859481343120121860311017567479544154355 [];
+  __NODE_874031118731118339010086133474508695330 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+  __NODE_1507102238678432476213379539040913586897:next:c -> __NODE_1409407060489347369513443616486247791924:nw [];
+  __NODE_1507102238678432476213379539040913586897:prev:c -> __NODE_859481343120121860311017567479544154355:se [ constraint=false];
+  __NODE_1409407060489347369513443616486247791924:next:c -> __NODE_874031118731118339010086133474508695330:nw [color=red];
+  __NODE_1409407060489347369513443616486247791924:prev:c -> __NODE_1507102238678432476213379539040913586897:se [];
+  __NODE_874031118731118339010086133474508695330:prev:c -> __NODE_1409407060489347369513443616486247791924:se [color=blue];
+  __NODE_859481343120121860311017567479544154355:next:c -> __NODE_1507102238678432476213379539040913586897:nw [ constraint=false];
+  __DUMMY_0 -> __DUMMY_1 -> __DUMMY_2 -> __DUMMY_3 [style=invis];
+}`);
+</script>
+<h2><code>remove(0)</code> at 2020-03-02 14:54:01.518 from <code>MikeTest.java:233</code></h2>
+<div id="e76cb2be-316d-46d8-93ff-94758f8f914f"></div>
+<script>
+d3.select('[id="e76cb2be-316d-46d8-93ff-94758f8f914f"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_1178179359506663074910039861612355109563[label="{<prev>|<data> B|<next>}",];}
+  {rank=same; __DUMMY_1[shape=none,label="",height=0,width=0];   __NODE_1369708549056753225113328394644143119138[label="{<prev>|<data> C|<next>}",];}
+  {rank=same; __DUMMY_2[shape=none,label="",height=0,width=0];   __NODE_91227011673214990749990636118201983023[label="{<prev>|<data> D|<next>}",];}
+  __HEADER_NAME -> __NODE_1178179359506663074910039861612355109563 [color=red];
+  __NODE_91227011673214990749990636118201983023 -> __TAIL_NAME [dir=back,];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+  __NODE_1178179359506663074910039861612355109563:next:c -> __NODE_1369708549056753225113328394644143119138:nw [ constraint=false];
+  __NODE_1369708549056753225113328394644143119138:next:c -> __NODE_91227011673214990749990636118201983023:nw [];
+  __NODE_1369708549056753225113328394644143119138:prev:c -> __NODE_1178179359506663074910039861612355109563:se [ constraint=false];
+  __NODE_91227011673214990749990636118201983023:prev:c -> __NODE_1369708549056753225113328394644143119138:se [];
+  __DUMMY_0 -> __DUMMY_1 -> __DUMMY_2 [style=invis];
+}`);
+</script>
+<h4><code>size()</code> at 2020-03-02 14:54:01.519 from <code>MikeTest.java:234</code></h4>
+<h2><code>remove(2)</code> at 2020-03-02 14:54:01.520 from <code>MikeTest.java:234</code></h2>
+<div id="4953212c-f730-4b45-9699-fb63cd2024cb"></div>
+<script>
+d3.select('[id="4953212c-f730-4b45-9699-fb63cd2024cb"]').graphviz().engine('dot').renderDot(`
+strict digraph {
+  node[shape=record,penwidth=1.5];
+  edge[penwidth=2];
+  rankdir=LR;
+  bgcolor=transparent;
+  splines=true;
+  ordering=out;
+  __HEADER_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="first"];
+  __TAIL_NAME[style=filled,fillcolor=black,fontcolor=white,fontname=monospace,shape=ellipse,label="last"];
+  {rank=same; __DUMMY_0[shape=none,label="",height=0,width=0];   __NODE_501131336051223961011056898801573934784[label="{<prev>|<data> B|<next>}",];}
+  {rank=same; __DUMMY_1[shape=none,label="",height=0,width=0];   __NODE_49312321317598194299488476014813203766[label="{<prev>|<data> C|<next>}",];}
+  __HEADER_NAME -> __NODE_501131336051223961011056898801573934784 [];
+  __NODE_49312321317598194299488476014813203766 -> __TAIL_NAME [dir=back,color=red];
+  edge[tailclip=false,arrowtail=dot,dir=both];
+  __NODE_501131336051223961011056898801573934784:next:c -> __NODE_49312321317598194299488476014813203766:nw [ constraint=false];
+  __NODE_49312321317598194299488476014813203766:prev:c -> __NODE_501131336051223961011056898801573934784:se [ constraint=false];
+  __DUMMY_0 -> __DUMMY_1 [style=invis];
+}`);
+</script>
+<h4><code>size()</code> at 2020-03-02 14:54:01.521 from <code>MikeTest.java:250</code></h4>
+<h4><code>iterator()</code> at 2020-03-02 14:54:01.521 from <code>MikeTest.java:251</code></h4>
+<hr/>
+<p>Is something not as you would expect?  Check the <a href="https://www.cs.utexas.edu/~scottm/cs314/Assignments/A5_LinkedLists.html"><code>LinkedList</code> assignment page</a>!</p>
+<p>This report was generated by <a href="https://github.com/Andrew-William-Smith/CS314-LinkedListView"><code>CS314-LinkedListView</code></a>.</p>
+</body>
+</html>

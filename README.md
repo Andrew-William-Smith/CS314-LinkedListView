@@ -33,8 +33,8 @@ You can open this file to see a log of all of the `LinkedList` operations your t
 ![](https://raw.githubusercontent.com/Andrew-William-Smith/CS314-LinkedListView/master/examples/output-screenshot.png)
 
 ## Examples
-For an example of how `LinkedListView` works and what its output looks like, see [`MikeTest.java`](https://raw.githubusercontent.com/Andrew-William-Smith/CS314-LinkedListView/master/examples/MikeTest.java) and [`MikeTest.html`](https://raw.githubusercontent.com/Andrew-William-Smith/CS314-LinkedListView/master/examples/MikeTest.html) in the `examples` directory, respectively.
-`MikeTest.java` is a very lightly adapted version of the default `LinkedList` test file that works with `LinkedListView`, and `MikeTest.html` is the expected HTML output of that `LinkedListView` for a properly functioning `LinkedList` implementation.
+For an example of how `LinkedListView` works and what its output looks like, see [`MikeTest.java`](https://raw.githubusercontent.com/Andrew-William-Smith/CS314-LinkedListView/master/examples/MikeTest.java) and one of the `MikeTest_*.html` files in the `examples` directory, respectively.
+`MikeTest.java` is a very lightly adapted version of the default `LinkedList` test file that works with `LinkedListView`, `MikeTest-Circular.html` is the output of that `LinkedListView` for a properly implemented circular `LinkedList` with a "dummy" header node, and `MikeTest-Linear.html` is the output for a `LinkedList` with separate head and tail nodes.
 If your output matches that file when viewed in a web browser, you should be good to go!
 
 ## Mechanics
